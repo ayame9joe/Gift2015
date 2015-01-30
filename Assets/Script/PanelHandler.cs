@@ -9,7 +9,7 @@ public class PanelHandler : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 	public GameObject Niuniu ;
 	public GameObject Body;
 	public GameObject Eyes;
-
+	public Text tutorial;
 	bool mouseDown;
 	public AudioClip tick;
 	public void OnPointerDown(PointerEventData eventData)
@@ -65,7 +65,11 @@ public class PanelHandler : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 			//	new Vector3((Input.mousePosition.x - Eyes.transform.position.x) * 0.02f,
 			 //           (Input.mousePosition.y - Eyes.transform.position.y) * 0.2f,
 			 //           0));
-
+			if(PetController.tutorialIndex == 4)
+			{
+				tutorial.text = "不断互动会有什么结果";
+				PetController.tutorialIndex++;
+			}
 			//Eyes.transform.position = new Vector3(Mathf.Lerp(Eyes.transform.position.x, (Input.mousePosition.x - Eyes.transform.position.x) * 0.02f, Time.deltaTime), Mathf.Lerp(Eyes.transform.position.x, (Input.mousePosition.y - Eyes.transform.position.y) * 0.02f, Time.deltaTime),0);
 			audio.PlayOneShot(tick, 2f);
 			Eyes.transform.localPosition = new Vector3((Input.mousePosition.x - Eyes.transform.position.x) * 0.02f,

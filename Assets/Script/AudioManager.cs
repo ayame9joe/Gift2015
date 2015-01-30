@@ -29,7 +29,9 @@ public class AudioManager : MonoBehaviour {
 				this.GetComponent<AudioSource>().mute = false;
 				if (!audio.isPlaying)
 				{
-					audio.PlayOneShot(leco, 10f);
+					audio.loop = true;
+					audio.clip = leco;
+					audio.Play();
 				}
 			}
 

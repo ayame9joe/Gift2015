@@ -13,6 +13,7 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 	public AudioClip laugh;
 	public AudioClip scream;
 
+	public Text tutorial;
 
 	// ----- GameObjects -----
 	public GameObject Hand;
@@ -43,6 +44,7 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 	bool hasStartCount;
 	bool canBeTouched;
 
+	public static int tutorialIndex;
 	bool isTouching;
 	bool isJumping;
 	// Use this for initialization
@@ -57,6 +59,12 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 		}
 
 		anim = GetComponent<Animator>();
+
+		if(tutorialIndex == 0)
+		{
+			tutorial.text = "点击互动";
+			tutorialIndex++;
+		}
 
 		//StartCoroutine("AngryDecrease");
 		
@@ -85,7 +93,11 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
 				if (canBeTouched && !isJumping) 
 				{
-
+					if(tutorialIndex == 1)
+					{
+						tutorial.text = "向上划动抛起";
+						tutorialIndex++;
+					}
 					if (tempAngry > 3)
 					{
 
@@ -150,8 +162,14 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 				}
 				else
 				{
+					if(tutorialIndex == 3)
+					{
+						tutorial.text = "在其他区域拖动看看";
+						tutorialIndex++;
+					}
 					anim.Play("Shy");
 				}
+
 				StopCount ();
 				
 			}
@@ -173,6 +191,11 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 		if ((angry > 5 || angry == 5)&&tempAngry > 0) {
 			getAngry = true;
 			audio.Stop();
+			if(tutorialIndex == 5)
+			{
+				tutorial.text = "停下来等待就没事了";
+				tutorialIndex++;
+			}
 			//anim.SetInteger ("randomNegativeAnimation", Random.Range(1,5));
 			switch (Random.Range(1,5)) {
 			case 1:
@@ -181,15 +204,15 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 				break;
 			case 2:	
 				anim.Play ("Cry1");
-				audio.PlayOneShot(cry, 20f);
+				audio.PlayOneShot(cry, 40f);
 				break;
 			case 3:
 				anim.Play ("Cry2");
-				audio.PlayOneShot(cry, 20f);
+				audio.PlayOneShot(cry, 40f);
 				break;
 			case 4:
 				anim.Play ("Xiuxiu");
-				audio.PlayOneShot(cry, 20f);
+				audio.PlayOneShot(cry, 40f);
 				break;
 			}
 
@@ -244,6 +267,11 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
 
 		if (currentState.nameHash == Animator.StringToHash ("Base Layer.Idle")) {
+			if(tutorialIndex == 6)
+			{
+				tutorial.text = "一直不动会自己做事";
+				tutorialIndex++;
+			}
 			canBeTouched = true;
 			isJumping = false;
 			anim.SetInteger ("randomNegativeAnimation", 0);
@@ -260,6 +288,11 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 		}
 
 		if (counter > 10) {
+			if(tutorialIndex == 7)
+			{
+				tutorial.text = "自由地享受互动吧";
+				tutorialIndex++;
+			}
 			switch (Random.Range (0, 3)) {
 				case 0:
 				anim.Play ("Eat");
@@ -346,6 +379,11 @@ public class PetController : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 				this.transform.position.x,
 				Input.mousePosition.y, 
 				0);
+		}
+		if(tutorialIndex == 2)
+		{
+			tutorial.text = "不断抚摸直到……";
+			tutorialIndex++;
 		}
 	
 	}
